@@ -84,6 +84,68 @@ export async function approveDelegate(
   )
 
   console.log(
-    `Approve delegate transaction https://explorer.solana.com/tx/${transactionSignature}?cluster=devnet`
+    `Approve delegate transaction: https://explorer.solana.com/tx/${transactionSignature}?cluster=devnet`
+  )
+}
+
+export async function transferTokens(
+  connection: web3.Connection,
+  payer: web3.Keypair,
+  sourceTokenAccount: web3.PublicKey,
+  destinationTokenAccount: web3.PublicKey,
+  owner: web3.Keypair,
+  amount: number
+) {
+  const transactionSignature = await token.transfer(
+    connection,
+    payer,
+    sourceTokenAccount,
+    destinationTokenAccount,
+    owner,
+    amount
+  )
+
+  console.log(
+    `Transfer transaction: https://explorer.solana.com/tx/${transactionSignature}?cluster=devnet`
+  )
+}
+
+export async function revokeDelegate(
+  connection: web3.Connection,
+  payer: web3.Keypair,
+  tokenAccount: web3.PublicKey,
+  owner: web3.Signer | web3.PublicKey,
+) {
+  const transactionSignature = await token.revoke(
+    connection,
+    payer,
+    tokenAccount,
+    owner
+  )
+
+  console.log(
+    `Revoke Delegate transaction: https://explorer.solana.com/tx/${transactionSignature}?cluster=devnet`
+  )
+}
+
+export async function burnTokens(
+  connection: web3.Connection,
+  payer: web3.Keypair,
+  tokenAccount: web3.PublicKey,
+  mint: web3.PublicKey,
+  owner: web3.Keypair,
+  amount: number
+) {
+  const transactionSignature = await token.burn(
+    connection,
+    payer,
+    tokenAccount,
+    mint,
+    owner,
+    amount
+  )
+
+  console.log(
+    `Burn transaction: https://explorer.solana.com/tx/${transactionSignature}?cluster=devnet`
   )
 }
